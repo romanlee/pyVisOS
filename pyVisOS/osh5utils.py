@@ -4,13 +4,13 @@ osh5utils.py
 Provide basic operations for H5Data.
 """
 
-import osh5def
+from . import osh5def
 import numpy as np
 import copy
 import re
 from functools import wraps, partial, reduce
 import warnings
-import osh5io
+from . import osh5io
 import glob
 from scipy import signal
 from scipy import ndimage

@@ -19,7 +19,7 @@ __status__ = "Development"
 import h5py
 import os
 import numpy as np
-from osh5def import H5Data, PartData, fn_rule, DataAxis, OSUnits
+from .osh5def import H5Data, PartData, fn_rule, DataAxis, OSUnits
 
 
 def read_h5(filename, path=None, axis_name="AXIS/AXIS"):

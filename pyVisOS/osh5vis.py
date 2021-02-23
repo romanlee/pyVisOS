@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
 import numpy as np
-import osh5def
+from . import osh5def
 import subprocess
 import re
 # try:
