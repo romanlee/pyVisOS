@@ -146,6 +146,7 @@ def osloglog(h5data, *args, fig=None, ax=None, **kwpassthrough):
 
 
 def add_colorbar(im, fig=None, cax=None, ax=None, cb=None, cblabel='', use_gridspec=True, **kwargs):
+    cax = fig.add_axes([ax.get_position().x1+0.01,ax.get_position().y0, 0.015, ax.get_position().height])
     if not cb:
         cb = plt.colorbar(im, cax=cax, ax=ax, label=cblabel, use_gridspec=use_gridspec, **kwargs) if fig is None \
              else fig.colorbar(im, cax=cax, ax=ax, label=cblabel, use_gridspec=use_gridspec, **kwargs)
