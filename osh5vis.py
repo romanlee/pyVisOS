@@ -146,7 +146,8 @@ def osloglog(h5data, *args, fig=None, ax=None, **kwpassthrough):
 
 
 def add_colorbar(im, fig=None, cax=None, ax=None, cb=None, cblabel='', use_gridspec=True, **kwargs):
-    cax = fig.add_axes([ax.get_position().x1+0.01,ax.get_position().y0, 0.015, ax.get_position().height])
+    if cax is not None:
+        cax = fig.add_axes([ax.get_position().x1+0.01,ax.get_position().y0, 0.015, ax.get_position().height])
     if not cb:
         cb = plt.colorbar(im, cax=cax, ax=ax, label=cblabel, use_gridspec=use_gridspec, **kwargs) if fig is None \
              else fig.colorbar(im, cax=cax, ax=ax, label=cblabel, use_gridspec=use_gridspec, **kwargs)
@@ -182,7 +183,7 @@ def get_y_extent_and_unit(h5data, convert_yaxis=False, wavelength=0.351):
 
 def __osplot2d(func, h5data, *args, xlabel=None, ylabel=None, cblabel=None, title=None, xlim=None, ylim=None, clim=None,
                colorbar=True, ax=None, im=None, cb=None, convert_xaxis=False, convert_yaxis=False, fig=None,
-               convert_tunit=False, wavelength=0.351, colorbar_kw=None, **kwpassthrough_plotting):
+               convert_tunit=False, wavelength=0.351, colorbar_kw=None, cax_add=False, **kwpassthrough_plotting):
     extx, xunit = get_x_extent_and_unit(h5data, convert_xaxis=convert_xaxis, wavelength=wavelength)
     exty, yunit = get_y_extent_and_unit(h5data, convert_yaxis=convert_yaxis, wavelength=wavelength)
     # not a very good idea, we should have a better way to do this
@@ -215,7 +216,10 @@ def __osplot2d(func, h5data, *args, xlabel=None, ylabel=None, cblabel=None, titl
                 clb = '$' + str(h5data.data_attrs['UNITS']) + '$'
         if colorbar_kw is None:
             colorbar_kw = {}
-        ncb = add_colorbar(plot_object, fig=fig, ax=ax, cb=cb, cblabel=clb, **colorbar_kw)
+        if cax_add:
+            ncb = add_colorbar(plot_object, fig=fig, ax=ax, cax=1, cb=cb, cblabel=clb, **colorbar_kw)
+        else:
+            ncb = add_colorbar(plot_object, fig=fig, ax=ax, cb=cb, cblabel=clb, **colorbar_kw)
         return plot_object, ncb
     return plot_object, None
 
